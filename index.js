@@ -62,7 +62,7 @@ let db;
 bot.command('start', async (ctx) => {
   logger.info(`User ${ctx.from.id} started the bot`);
   await updateUserData(db, ctx.from.id);
-  await ctx.reply('Привет! Я бот предложка СКР! Предложка поддерживает отправку сообщений, фото, видео');
+  await ctx.reply(`Привет, ${ctx.from.first_name}! 👋\nЯ бот предложка СКР. Я могу помочь вам отправить сообщение, фото или видео администратору.`);
   
   // Устанавливаем suggestionClicked в true
   suggestionClicked[ctx.from.id] = true;
@@ -83,9 +83,9 @@ bot.on('message', async (ctx) => {
 
     // Создаем клавиатуру с кнопками "Принять", "Отклонить" и "Блокировать"
     const keyboard = new InlineKeyboard()
-      .text('Принять', `accept:${userId}:${ctx.message.message_id}`)
-      .text('Отклонить', `reject:${userId}:${ctx.message.message_id}`)
-      .text('Блокировать', `block:${userId}:${ctx.message.message_id}`);
+      .text('Принять ✅', `accept:${userId}:${ctx.message.message_id}`)
+      .text('Отклонить ❌', `reject:${userId}:${ctx.message.message_id}`)
+      .text('Блокировать 🚫', `block:${userId}:${ctx.message.message_id}`);
 
     // Сохраняем сообщение пользователя
     userMessages[`${userId}:${ctx.message.message_id}`] = ctx.message;
